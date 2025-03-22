@@ -1,241 +1,317 @@
-/* Basic reset */
+/* Réinitialisations et styles de base */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f0f4f8;
+  color: #333;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Mode sombre */
+body.dark-mode {
+  background: #1e1e2f;
+  color: #ddd;
+}
+
+/* Container central */
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Carte glassmorphism de base */
+.card {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Effet au survol de la carte */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(31, 38, 135, 0.5);
+}
+
+/* Carte spécifique pour la page login */
+.login-card {
+  max-width: 350px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.header-actions .btn {
+  margin-left: 0.5rem;
+}
+
+/* Éléments de formulaire */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  color: inherit;
+  font-size: 1rem;
+  outline: none;
+  transition: background 0.3s ease;
+}
+
+.form-group input:focus {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Boutons */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn.btn-delete {
+  background: #e74c3c;
+}
+
+/* Alertes */
+.alert {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.alert-success {
+  background-color: rgba(46, 204, 113, 0.2);
+  color: #2ecc71;
+}
+
+.alert-error, .alert-danger {
+  background-color: rgba(231, 76, 60, 0.2);
+  color: #e74c3c;
+}
+
+/* Contenu principal */
+.main-content {
+  padding: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Section upload */
+.upload-section {
+  margin-bottom: 2rem;
+}
+
+/* Drop zone */
+.drop-zone {
+  border: 2px dashed rgba(255, 255, 255, 0.4);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.drop-zone.dragover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Section fichiers */
+.files-section {
+  margin-top: 2rem;
+}
+
+.files-section h3 {
+  margin-bottom: 1rem;
+}
+
+.files-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+/* Carte fichier */
+.file-card {
+  padding: 1rem;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(31, 38, 135, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.file-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(31, 38, 135, 0.3);
+}
+
+.file-name {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  word-break: break-all;
+}
+
+.file-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: relative;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 10% auto;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 90%;
+  max-width: 400px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: fadeIn 0.4s ease;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Image QR Code */
+.qr-image {
+  width: 100%;
+  height: auto;
+  margin-top: 1rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
   }
-  
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
-    line-height: 1.6;
-    transition: background-color 0.3s, color 0.3s;
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
-  
-  .dark-mode {
-    background-color: #18191a;
-    color: #e4e6eb;
-  }
-  
-  /* Header */
+}
+
+/* Adaptations responsives */
+@media (max-width: 768px) {
   .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: #ffffff;
-    border-bottom: 1px solid #ccc;
-  }
-  .dark-mode .header {
-    background-color: #242526;
-    border-bottom: 1px solid #3a3b3c;
-  }
-  
-  .header-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .header-actions .btn {
-    margin-left: 0.5rem;
-  }
-  
-  /* Container */
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-  }
-  
-  /* Main content */
-  .main-content {
-    padding: 1rem;
-  }
-  
-  /* Cards */
-  .card {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  .dark-mode .card {
-    background-color: #242526;
-    border: 1px solid #3a3b3c;
-  }
-  
-  /* Buttons */
-  .btn {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    margin: 0.2rem;
-    border: none;
-    border-radius: 4px;
-    background-color: #1877f2;
-    color: #fff;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s;
-  }
-  .btn:hover {
-    background-color: #166fe5;
-  }
-  .btn-delete {
-    background-color: #e53935;
-  }
-  .btn-delete:hover {
-    background-color: #d32f2f;
-  }
-  
-  /* Form groups */
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  
-  .form-group input {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  /* Login Card */
-  .login-card {
-    max-width: 400px;
-    margin: 5rem auto;
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  /* Alerts */
-  .alert {
-    padding: 0.75rem 1rem;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-  }
-  .alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-  }
-  .alert-warning {
-    background-color: #fff3cd;
-    color: #856404;
-  }
-  .alert-success {
-    background-color: #d4edda;
-    color: #155724;
-  }
-  
-  /* Drop zone */
-  .drop-zone {
-    border: 2px dashed #ccc;
-    border-radius: 8px;
-    padding: 2rem;
-    text-align: center;
-    transition: background-color 0.3s;
-    cursor: pointer;
-  }
-  .drop-zone:hover {
-    background-color: #f9f9f9;
-  }
-  .dark-mode .drop-zone {
-    border: 2px dashed #555;
-  }
-  .drop-zone.dragover {
-    background-color: #e0e0e0;
-  }
-  .dark-mode .drop-zone.dragover {
-    background-color: #3a3b3c;
-  }
-  
-  /* Files Section */
-  .files-section {
-    margin-top: 2rem;
-  }
-  .files-section h3 {
-    margin-bottom: 1rem;
-  }
-  .files-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-  }
-  .file-card {
-    display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-items: flex-start;
   }
-  
-  /* File actions */
-  .file-actions {
-    margin-top: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+
+  .header-actions {
+    margin-top: 0.5rem;
   }
-  
-  /* Modal */
-  .modal {
-    display: none; /* Hidden by default */
-    position: fixed; 
-    z-index: 1000; 
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.6);
-  }
-  .modal-content {
-    background-color: #fefefe;
-    margin: 10% auto;
+
+  .card {
     padding: 1.5rem;
-    border: 1px solid #888;
-    width: 90%;
-    max-width: 400px;
-    border-radius: 8px;
-    text-align: center;
-    position: relative;
   }
-  .dark-mode .modal-content {
-    background-color: #242526;
-    border: 1px solid #3a3b3c;
-    color: #e4e6eb;
+
+  .files-grid {
+    grid-template-columns: 1fr;
   }
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-  
-  /* QR Code image */
-  .qr-image {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 600px) {
-    .header-title {
-      font-size: 1.2rem;
-    }
-    .header-actions .btn {
-      padding: 0.3rem 0.6rem;
-      font-size: 0.9rem;
-    }
-    .login-card {
-      margin: 2rem;
-      padding: 1.5rem;
-    }
-  }
-  
+}
+
+/* Adaptations du mode sombre pour les éléments glass */
+body.dark-mode .card,
+body.dark-mode .drop-zone,
+body.dark-mode .modal-content {
+  background: rgba(30, 30, 47, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+body.dark-mode .header {
+  background: rgba(30, 30, 47, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+body.dark-mode .btn {
+  background: linear-gradient(135deg, #a777e3, #6e8efb);
+}
