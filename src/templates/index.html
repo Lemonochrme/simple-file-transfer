@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Transfert de Fichiers</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">File Transfer</a>
+  <div class="ml-auto">
+    <a href="{{ url_for('logout') }}" class="btn btn-outline-light">Déconnexion</a>
+  </div>
+</nav>
+<div class="container mt-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="drop-zone" id="drop-zone">
+        <div class="drop-zone__prompt">Glissez-déposez vos fichiers ici ou cliquez pour sélectionner</div>
+        <form id="upload-form" action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" id="file-input" style="display:none;" onchange="this.form.submit()">
+        </form>
+    </div>
+    <h3 class="mt-5">Fichiers disponibles</h3>
+    <ul class="list-group">
+        {% for file in files %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ file }}
+                <a href="{{ url_for('download', filename=file) }}" class="btn btn-sm btn-success">Télécharger</a>
+            </li>
+        {% else %}
+            <li class="list-group-item">Aucun fichier disponible</li>
+        {% endfor %}
+    </ul>
+</div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
