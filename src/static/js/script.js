@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const dropZone = document.getElementById('drop-zone');
     const fileInput = document.getElementById('file-input');
-
+    const themeToggle = document.getElementById('theme-toggle');
+    
     dropZone.addEventListener('click', () => {
         fileInput.click();
     });
@@ -23,4 +24,17 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('upload-form').submit();
         }
     });
+
+    // Dark/Light theme toggle
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+    });
 });
+
+// Function to show QR code in modal
+function showQRCode(filename) {
+    const qrImage = document.getElementById('qrImage');
+    qrImage.src = '/qrcode/' + encodeURIComponent(filename);
+    // Display modal using Bootstrap's jQuery method
+    $('#qrModal').modal('show');
+}

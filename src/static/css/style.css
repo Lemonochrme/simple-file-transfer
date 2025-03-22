@@ -1,5 +1,24 @@
 body {
     background-color: #f8f9fa;
+    color: #212529;
+}
+
+.dark-mode {
+    background-color: #343a40;
+    color: #f8f9fa;
+}
+
+.dark-mode .navbar {
+    background-color: #212529;
+}
+
+.dark-mode .drop-zone {
+    background-color: #495057;
+    border-color: #ced4da;
+}
+
+.dark-mode .drop-zone__prompt {
+    color: #f8f9fa;
 }
 
 .drop-zone {
@@ -14,9 +33,4 @@ body {
 
 .drop-zone.dragover {
     background-color: #ced4da;
-}
-
-.drop-zone__prompt {
-    font-size: 1.2rem;
-    color: #495057;
 }

@@ -1,16 +1,29 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Transfert de Fichiers</title>
+    <title>File Transfer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">File Transfer</a>
-  <div class="ml-auto">
-    <a href="{{ url_for('logout') }}" class="btn btn-outline-light">Déconnexion</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+              <button id="theme-toggle" class="btn btn-outline-light mr-2">Toggle Theme</button>
+          </li>
+          <li class="nav-item">
+              <a href="{{ url_for('logout') }}" class="btn btn-outline-light">Logout</a>
+          </li>
+      </ul>
   </div>
 </nav>
 <div class="container mt-4">
@@ -24,23 +37,51 @@
         {% endif %}
     {% endwith %}
     <div class="drop-zone" id="drop-zone">
-        <div class="drop-zone__prompt">Glissez-déposez vos fichiers ici ou cliquez pour sélectionner</div>
+        <div class="drop-zone__prompt">Drag & drop files here or click to select</div>
         <form id="upload-form" action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
             <input type="file" name="file" id="file-input" style="display:none;" onchange="this.form.submit()">
         </form>
     </div>
-    <h3 class="mt-5">Fichiers disponibles</h3>
+    <h3 class="mt-5">Available Files</h3>
     <ul class="list-group">
         {% for file in files %}
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{ file }}
-                <a href="{{ url_for('download', filename=file) }}" class="btn btn-sm btn-success">Télécharger</a>
+                <span>{{ file }}</span>
+                <div>
+                    <a href="{{ url_for('download', filename=file) }}" class="btn btn-sm btn-success mr-2">Download</a>
+                    <button class="btn btn-sm btn-info mr-2" onclick="showQRCode('{{ file }}')">QR Code</button>
+                    <form method="POST" action="{{ url_for('delete', filename=file) }}" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
             </li>
         {% else %}
-            <li class="list-group-item">Aucun fichier disponible</li>
+            <li class="list-group-item">No files available</li>
         {% endfor %}
     </ul>
 </div>
+
+<!-- QR Code Modal -->
+<div class="modal fade" id="qrModal" tabindex="-1" role="dialog" aria-labelledby="qrModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="qrModalLabel">QR Code</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <img id="qrImage" src="" alt="QR Code" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- jQuery, Popper.js, Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
