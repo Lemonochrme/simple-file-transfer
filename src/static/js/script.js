@@ -29,12 +29,25 @@ document.addEventListener('DOMContentLoaded', function() {
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
     });
+    
+    // Modal close event
+    const modal = document.getElementById('qr-modal');
+    const modalClose = document.getElementById('modal-close');
+    modalClose.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    
+    window.addEventListener('click', (event) => {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    });
 });
 
 // Function to show QR code in modal
 function showQRCode(filename) {
     const qrImage = document.getElementById('qrImage');
     qrImage.src = '/qrcode/' + encodeURIComponent(filename);
-    // Display modal using Bootstrap's jQuery method
-    $('#qrModal').modal('show');
+    const modal = document.getElementById('qr-modal');
+    modal.style.display = 'block';
 }
